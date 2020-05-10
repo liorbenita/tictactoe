@@ -1,5 +1,5 @@
 import React from 'react';
-import  style from './tictactoe.less';
+import './tictactoe.less';
 
 // ts interfaces helps us to idenify problems and to know exactly what each component/function/class should get by type 
 
@@ -23,7 +23,12 @@ interface GameState{
 // project Component
 class TicTacToe extends React.Component {
     render(){
-        return(<Game/>)
+        return(
+        <div>
+          <h1>TIC TAC TOW</h1>
+          <Game/>
+        </div>
+        )
     }
 }
 // the game component is the most important one it holds all the functionality 

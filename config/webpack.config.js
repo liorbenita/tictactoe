@@ -46,6 +46,7 @@ const useTypeScript = fs.existsSync(paths.appTsConfig);
 
 // style files regexes
 const cssRegex = /\.css$/;
+const lessRegex = /\.less$/;
 const cssModuleRegex = /\.module\.css$/;
 const sassRegex = /\.(scss|sass)$/;
 const sassModuleRegex = /\.module\.(scss|sass)$/;
@@ -318,18 +319,7 @@ module.exports = function(webpackEnv) {
         PnpWebpackPlugin.moduleLoader(module),
       ],
     },
-    module: {
-      rules: [
-        {
-          test: /\.less$/, // .less and .css
-                use: [ 
-                     'style-loader', 
-                    'css-loader', 
-                    'less-loader'
-                ], // compiles Less to CSS
-        },
-      ],
-    },
+    
     module: {
       strictExportPresence: true,
       rules: [
@@ -450,6 +440,25 @@ module.exports = function(webpackEnv) {
               // Remove this when webpack adds a warning or an error for this.
               // See https://github.com/webpack/webpack/issues/6571
               sideEffects: true,
+            },
+           
+            {
+              test: /\.less$/,
+              use: [
+                'style-loader',
+                {
+                  loader: 'css-loader',
+                  options: {
+                    sourceMap: true,
+                  },
+                },
+                {
+                  loader: 'less-loader',
+                  options: {
+                    sourceMap: true,
+                  },
+                },
+              ],
             },
             // Adds support for CSS Modules (https://github.com/css-modules/css-modules)
             // using the extension .module.css
